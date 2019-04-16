@@ -1,0 +1,16 @@
+{
+  "name": "kollex/coding-challenge-wholesaler-integration",
+  "description": "kollex Coding Challenge: Wholesaler Assortment",
+  "autoload": {
+    "psr-0": {
+      "kollex\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+  },
+  "suggest": {
+  }
+}

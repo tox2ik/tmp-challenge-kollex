@@ -1,0 +1,103 @@
+swagger: "2.0"
+info:
+  description: |
+    This is **NOT** an API documentation, but an imaginary product schema specification for assortment management.
+  version: "1"
+  title: "kollex - Wholesaler Assortment"
+tags:
+  - name: "Assortment"
+    description: "Product assortment information"
+schemes:
+  - "https"
+paths:
+  /product:
+    post:
+      summary: "This is NOT an endpoint specification, just an example of the Product schema."
+      tags:
+        - "Assortment"
+      parameters:
+        - in: "body"
+          name: "payload"
+          required: true
+          schema:
+            $ref: "#/definitions/Product"
+      responses:
+        201:
+          description: "Created"
+
+definitions:
+  Product:
+    type: "object"
+    required:
+      - "id"
+      - "manufacturer"
+      - "name"
+      - "packaging"
+      - "baseProductPackaging"
+      - "baseProductUnit"
+      - "baseProductAmount"
+      - "baseProductQuantity"
+    externalDocs:
+      url: "http://t3.apptrix.com/syteline/Language/en-US/fields/i/iso_um_ums.htm"
+    properties:
+      id:
+        type: "string"
+        description: "The wholesaler's unique product identifier"
+        example: "ABC12345678"
+      gtin:
+        type: "string"
+        description: |
+          The "Global Trade Identification Number" (GTIN/EAN), a public identifier for trade items, developed by GS1
+        example: "05449000061704"
+      manufacturer:
+        type: "string"
+        description: "Manufacturer name"
+        example: "Beverages Ltd."
+      name:
+        type: "string"
+        description: "Product name"
+        example: "Beverage 23, 6x 0.75 L"
+      packaging:
+        type: "string"
+        description: |
+          Packaging of the product (standardized units, see external docs), for example a case (CA)
+          Avaiable options:
+          - CA = case
+          - BX = box
+          - BO = bottle
+        example: "CA"
+        enum:
+          - "CA"
+          - "BX"
+          - "BO"
+      baseProductPackaging:
+        type: "string"
+        description: |
+          Packaging of the base product (standardized units, see external docs), for example a bottle (BO)
+          Avaiable options:
+          - BO = bottle
+          - CN = can
+        example: "BO"
+        enum:
+          - "BO"
+          - "CN"
+      baseProductUnit:
+        type: "string"
+        description: |
+          Unit of measurement of the base product (standardized units, see external docs), for example liters (LT)
+          Avaiable options:
+          - LT = liters
+          - GR = grams
+        example: "LT"
+        enum:
+          - "LT"
+          - "GR"
+      baseProductAmount:
+        type: "number"
+        format: "float"
+        description: "Amount of contents in the given unit of measurement of the base product, for example 0.75 liters"
+        example: 0.75
+      baseProductQuantity:
+        type: "integer"
+        description: "Number of base products within the package, for example 6 bottles"
+        example: 6
