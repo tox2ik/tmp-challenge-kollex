@@ -1,0 +1,107 @@
+@startuml
+
+' skinparams begin
+skinparam class {
+	FontColor black
+	FontSize 14
+	FontName "Source Code Pro"
+	BorderColor DarkKhaki
+	ArrowColor DarkOrange
+}
+
+skinparam Arrow {
+	FontSize 14
+	FontName "Source Code Pro"
+	Thickness 1.6
+}
+skinparam PackageFontName "Source Code Pro"
+skinparam NoteBackgroundColor DarkKhaki
+skinparam NoteBorderColor gray
+' skinparams end
+
+hide members
+
+
+class OS.File << (S,#FF7700) System >>
+
+
+note bottom: JSON,\nCSV,\nXML
+
+package kollex.Import {
+	Class FileReader
+	interface SourceInterface {
+		+ importAll()
+		+ report()
+	}
+	interface ReaderInterface {
+		+ open()
+	}
+
+	OS.File -[#6b8e23]-> FileSource
+	class FileSource {
+		# reader
+		# adapter
+	}
+	show FileSource members
+	show SourceInterface methods
+	show ReaderInterface methods
+
+	SourceInterface <|.. FileSource
+	ReaderInterface <|.. FileReader
+
+
+	FileSource -[#6b8e23]> FileReader
+
+	FileSource o- FileReader
+}
+
+
+package kollex.Import.Adapter {
+
+    class JsonAdapter
+    class CsvAdapter
+    interface FormatAdapter
+
+    FormatAdapter <|.. JsonAdapter
+    FormatAdapter <|.. CsvAdapter
+}
+
+FileSource o---- JsonAdapter
+FileReader -[#6b8e23]---> JsonAdapter
+
+package kollex.Entity {
+    class Product
+	JsonAdapter -[#6b8e23]-> Product : " creates objects\nfrom input   "
+}
+
+package "kollex.DataProvider.\nAssortment" {
+    interface "Product" as ProviderProduct
+}
+Product --|> ProviderProduct
+
+
+interface Repository {
++ saveMany()
+- businessLogicViaServices()
+}
+show Repository members
+
+show DataMapper methods
+interface DataMapper {
++ persist()
+}
+
+
+Product -[#6b8e23]> Repository
+
+
+Repository -[#6b8e23]-> DataMapper : "serializes &\n persists objects"
+
+
+
+
+
+
+
+
+@enduml

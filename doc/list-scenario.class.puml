@@ -1,0 +1,62 @@
+@startuml
+' skinparams begin
+skinparam class {
+	FontColor black
+	FontSize 14
+	FontName "Source Code Pro"
+	BorderColor DarkKhaki
+	ArrowColor DarkOrange
+}
+
+skinparam Arrow {
+	FontSize 14
+	FontName "Source Code Pro"
+	Thickness 1.6
+}
+skinparam PackageFontName "Source Code Pro"
+skinparam NoteBackgroundColor DarkKhaki
+skinparam NoteBorderColor gray
+' skinparams end
+
+hide members
+
+
+show DataMapper methods
+show Repository methods
+
+interface DataMapper {
+    + retrieveAll()
+}
+interface Repository {
+	+ fetchAll()
+}
+
+package main {
+	class CLI << (S,#FF7700) System >> {
+	     + displayProducts()
+	}
+
+	class StdOut << (S,#FF7700) System >>
+}
+show CLI methods
+
+
+package kollex.Export {
+     interface OutputFormatter
+     class JsonOutput
+     OutputFormatter <|.. JsonOutput
+}
+
+CLI --[#6b8e23]> Repository
+Repository -[#6b8e23]> DataMapper
+
+
+DataMapper -[#6b8e23]-> JsonOutput
+JsonOutput -[#6b8e23]-> StdOut
+
+
+StdOut -[#6b8e23]-> CLI
+
+
+
+@enduml
