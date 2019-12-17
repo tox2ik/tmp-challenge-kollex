@@ -59,4 +59,4 @@ enough. The focus of this task is the implementation of the data integration, va
 ## Voluntary Tasks
 - Docker setup: a Dockerfile and a docker-compose file, to run the whole stack via `docker-compose up`
 - descriptions, why you chose a specific structure or pattern, framework or library compared to other options 
-- an description of how you decided what tests to write
+- a description of how you decided what tests to write
