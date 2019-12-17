@@ -1,16 +1,14 @@
 {
-  "name": "kollex/coding-challenge-wholesaler-integration",
+  "name": "tox2ik/kollex-integration",
   "description": "kollex Coding Challenge: Wholesaler Assortment",
   "autoload": {
-    "psr-0": {
+    "psr-4": {
       "kollex\\": "src/"
     }
   },
   "require": {
     "php": ">=7.0"
   },
-  "require-dev": {
-  },
-  "suggest": {
-  }
+  "require-dev": { },
+  "suggest": { }
 }
