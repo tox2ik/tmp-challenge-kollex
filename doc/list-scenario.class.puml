@@ -24,39 +24,46 @@ hide members
 show DataMapper methods
 show Repository methods
 
-interface DataMapper {
-    + retrieveAll()
-}
-interface Repository {
-	+ fetchAll()
-}
 
 package main {
 	class CLI << (S,#FF7700) System >> {
 	     + displayProducts()
 	}
+	show CLI methods
 
 	class StdOut << (S,#FF7700) System >>
 }
-show CLI methods
 
-
-package kollex.Export {
-     interface OutputFormatter
-     class JsonOutput
-     OutputFormatter <|.. JsonOutput
+interface DataMapper {
+	+ retrieveAll()
+}
+interface Repository {
+	+ createAll()
 }
 
-CLI --[#6b8e23]> Repository
+
+package "kollex.DataProvider.\nAssortment" {
+    interface "Product" as ProviderProduct
+}
+
+package kollex.Export {
+     interface ExportFormatter {
+         + serialize()
+         + setItem()
+     }
+      Serializable ()-- ExportFormatter
+     class JsonOutput
+     ExportFormatter <|.. JsonOutput
+}
+show ExportFormatter methods
+
+CLI --[#6b8e23]> Repository : request\ndata
 Repository -[#6b8e23]> DataMapper
+DataMapper -[#6b8e23]-> ProviderProduct  : create \nDSL objects
 
+ProviderProduct -[#6b8e23]-> JsonOutput
 
-DataMapper -[#6b8e23]-> JsonOutput
-JsonOutput -[#6b8e23]-> StdOut
-
-
-StdOut -[#6b8e23]-> CLI
-
+JsonOutput -[#6b8e23]---> StdOut : print\noutput
 
 
 @enduml

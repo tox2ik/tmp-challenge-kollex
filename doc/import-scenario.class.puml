@@ -46,6 +46,9 @@ package kollex.Import {
 	show SourceInterface methods
 	show ReaderInterface methods
 
+
+    interface "kollex.DataProvider\n.Assortment\n.DataProvider"  as ProviderI
+    ProviderI <|. FileSource
 	SourceInterface <|.. FileSource
 	ReaderInterface <|.. FileReader
 
