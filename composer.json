@@ -1,18 +1,28 @@
 {
-  "name": "tox2ik/kollex-integration",
-  "description": "kollex Coding Challenge: Wholesaler Assortment",
-  "autoload": {
-    "psr-4": {
-      "kollex\\": "src/"
-    }
-  },
-  "require": {
-    "php": ">=7.2",
-    "doctrine/orm": "^2.7"
-  },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "^3.5",
-    "symfony/yaml": "^5.0"
-  },
-  "suggest": { }
+	"name": "tox2ik/kollex-integration",
+	"description": "kollex Coding Challenge: Wholesaler Assortment",
+	"autoload": {
+		"psr-4": {
+			"kollex\\": "src/"
+		}
+	},
+
+	"autoload-dev": {
+		"psr-4": {
+			"kollex\\": [ "test/unit", "test/integration" ]
+		}
+	},
+	"require": {
+		"php": ">=7.2",
+		"doctrine/orm": "^2.7",
+		"symfony/property-access": "^5.0",
+		"ext-json": "*"
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "^3.5",
+		"symfony/yaml": "^5.0",
+		"mikey179/vfsstream": "^1.6",
+		"phpunit/phpunit": "^8.5"
+	},
+	"suggest": { }
 }
