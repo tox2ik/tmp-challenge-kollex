@@ -7,21 +7,25 @@ use kollex\Import\Adapter\SchemaAdapterInterface;
 
 class FileSource implements SourceInterface
 {
+    /**
+     * @var array
+     */
+    public $runtimeEx = [];
 
     /**
      * @var ReaderInterface
      */
-    private $param;
+    private $reader;
 
     /**
      * @var SchemaAdapterInterface
      */
-    private $param1;
+    private $adapter;
 
-    public function __construct(ReaderInterface $param, SchemaAdapterInterface $param1)
+    public function __construct(ReaderInterface $reader, SchemaAdapterInterface $adapter)
     {
-        $this->param = $param;
-        $this->param1 = $param1;
+        $this->reader = $reader;
+        $this->adapter = $adapter;
     }
 
     /**
@@ -37,5 +41,23 @@ class FileSource implements SourceInterface
      */
     public function importAll(): array
     {
+        $products = [];
+        try {
+
+            $this->reader->open();
+        } catch (\RuntimeException $re) {
+            $this->runtimeEx[] = $re;
+        }
+        $iterator = $this->reader->iterator();
+        foreach ($iterator as $item) {
+            try {
+                $product = $this->adapter->convert($item);
+
+                $products[] = $product;
+            } catch (\RuntimeException $re) {
+                $this->runtimeEx[]= $re;
+            }
+        }
+        return $products;
     }
 }
