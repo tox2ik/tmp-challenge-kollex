@@ -13,4 +13,8 @@ class JsonSchemaAdapter implements SchemaAdapterInterface
     public function convert($item = null): Product
     {
     }
+
+    public function decode($item): object
+    {
+    }
 }
