@@ -55,6 +55,11 @@ Solution by Jaroslav
     - memory consumption
     - join complexity
 
+### Public fields in product
+
+There is no public API for export here, I own all the code in this challenge.
+Therefore, there is no need to encapsulate the entity properties.
+
 
 ## Architecture
 

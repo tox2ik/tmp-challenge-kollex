@@ -20,7 +20,7 @@ class Product implements ProviderProduct
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    protected $dbid;
+    public $dbid;
     /**
      * The wholesaler's unique product identifier
      *
@@ -32,7 +32,7 @@ class Product implements ProviderProduct
      *
      *
      */
-    protected $id;
+    public $id = '';
     /**
      * The "Global Trade Identification Number" (GTIN/EAN), a public identifier for trade items, developed by GS1
      *
@@ -44,7 +44,7 @@ class Product implements ProviderProduct
      *
      *
      */
-    protected $gtin;
+    public $gtin;
     /**
      * Manufacturer name
      *
@@ -56,7 +56,7 @@ class Product implements ProviderProduct
      *
      *
      */
-    protected $manufacturer;
+    public $manufacturer;
     /**
      * Product name
      *
@@ -68,7 +68,7 @@ class Product implements ProviderProduct
      *
      *
      */
-    protected $name;
+    public $name;
     /**
      * Packaging of the product (standardized units, see external docs), for example a case (CA)
      * Avaiable options:
@@ -84,7 +84,7 @@ class Product implements ProviderProduct
      *
      * ENUM: CA, BX, BO
      */
-    protected $packaging;
+    public $packaging;
     /**
      * Packaging of the base product (standardized units, see external docs), for example a bottle (BO)
      * Avaiable options:
@@ -99,7 +99,7 @@ class Product implements ProviderProduct
      *
      * ENUM: BO, CN
      */
-    protected $baseProductPackaging;
+    public $baseProductPackaging;
     /**
      * Unit of measurement of the base product (standardized units, see external docs), for example liters (LT)
      * Avaiable options:
@@ -114,7 +114,7 @@ class Product implements ProviderProduct
      *
      * ENUM: LT, GR
      */
-    protected $baseProductUnit;
+    public $baseProductUnit;
     /**
      * Amount of contents in the given unit of measurement of the base
      * product, for example 0.75 liters
@@ -127,7 +127,7 @@ class Product implements ProviderProduct
      *
      *
      */
-    protected $baseProductAmount;
+    public $baseProductAmount;
     /**
      * Number of base products within the package, for example 6 bottles
      *
@@ -139,7 +139,7 @@ class Product implements ProviderProduct
      *
      *
      */
-    protected $baseProductQuantity;
+    public $baseProductQuantity;
 
     public function __construct(array $properties = [])
     {
@@ -241,4 +241,5 @@ class Product implements ProviderProduct
     {
         return $this->id;
     }
+
 }
