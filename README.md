@@ -54,6 +54,11 @@ Solution by Jaroslav
 - Write about normalization / sapace tradeofs
     - memory consumption
     - join complexity
+    
+### Default length for all fields
+
+Given lack of more precise specifications, all text fields such as name and id are initialied with the
+default lengths for varchar (255 characters).
 
 ### Public fields in product
 
