@@ -4,7 +4,7 @@ namespace kollex\Entity;
 
 use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\ORM\Mapping as ORM;
-use kollex\Dataprovider\Assortment\Product as ProviderProduct;
+use kollex\DataProvider\Assortment\Product;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validation;
 
@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Validation;
  * @ORM\Entity
  * @ORM\Table(name="product")
  */
-class Product implements ProviderProduct
+class ProductEntity implements Product
 {
     /**
      * @ORM\Id

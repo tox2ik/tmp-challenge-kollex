@@ -21,11 +21,11 @@
     </testsuites>
 
     <filter>
-        <whitelist>
-            <directory>./</directory>
+        <whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
             <exclude>
-                <directory>./vendor</directory>
-                <directory>./test</directory>
+                <file>src/bootstrap/annotations.php</file>
+                <file>src/bootstrap/orm.php.php</file>
             </exclude>
         </whitelist>
     </filter>

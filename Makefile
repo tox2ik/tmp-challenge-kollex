@@ -33,8 +33,15 @@ desc_product:
 
 unit:
 	bash .meta/run-it.sh php -dauto_prepend_file=.meta/xdebug-trace-filter.php ./vendor/bin/phpunit \
+		--no-coverage \
+		--no-logging \
 		--stop-on-error --stop-on-failure \
 		--testsuite=unit
+
+coverage:
+	@mkdir -p var/log
+	phpunit --prepend .meta/xdebug-coverage-filter.php \
+		--coverage-html var/log/coverage-report-$$(date --rfc-3339=date)
 
 deps:
 	sudo apt-get install -y php7.2-xml php7.2-mbstring php7.2-pdo php7.2-sqlite
