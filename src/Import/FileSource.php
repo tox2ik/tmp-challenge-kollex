@@ -5,6 +5,7 @@ namespace kollex\Import;
 use kollex\Dataprovider\Assortment\Product;
 use kollex\Import\Adapter\SchemaAdapterInterface;
 use kollex\Logging\Reportable;
+use RuntimeException;
 
 class FileSource implements SourceInterface, Reportable
 {
@@ -57,7 +58,7 @@ class FileSource implements SourceInterface, Reportable
         $products = [];
         try {
             $this->reader->open();
-        } catch (\RuntimeException $re) {
+        } catch (RuntimeException $re) {
             $this->runtimeEx[] = $re;
         }
         $iterator = $this->reader->iterator();
@@ -71,7 +72,7 @@ class FileSource implements SourceInterface, Reportable
                 } else {
                     array_splice($this->errors, count($this->errors), 0, $errors);
                 }
-            } catch (\RuntimeException $re) {
+            } catch (RuntimeException $re) {
                 $this->runtimeEx[] = $re;
             }
         }

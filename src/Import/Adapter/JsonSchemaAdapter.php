@@ -47,8 +47,9 @@ class JsonSchemaAdapter implements SchemaAdapterInterface
         }
         ksort($out);
 
-        $out['packaging'] = static::$mapUnits[strtolower($out['packaging'])];
-        $out['baseProductPackaging'] = static::$mapUnits[strtolower($out['baseProductPackaging'])];
+        $out['packaging'] = static::$mapUnits[strtolower($out['packaging'])] ?? $out['packaging'];
+        $out['baseProductPackaging'] = static::$mapUnits[strtolower($out['baseProductPackaging'])]
+            ?? $out['baseProductPackaging'];
         return $out;
     }
 }
