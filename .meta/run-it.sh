@@ -2,11 +2,6 @@
 
 # curlerr () { curl -D/dev/stderr "$@"; } 
 
-
-
-
-export DOT_ENV=/T/trsys/timer/git/.env.test 
-
 index=main.php
 
 ( sleep 1; touch $index) &
