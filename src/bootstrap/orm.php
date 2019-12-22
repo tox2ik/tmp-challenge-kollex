@@ -21,7 +21,9 @@ function initOrm(array $connection = []): \Doctrine\ORM\EntityManager
     $connection = $connection ?: $conn;
 
     if ($connection['path'] ?? null) {
-        mkdir(dirname($connection['path']), 0755, true);
+        if (!is_dir(dirname($connection['path']))) {
+            mkdir(dirname($connection['path']), 0755, true);
+        }
     }
 
     try {
