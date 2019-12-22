@@ -1,6 +1,5 @@
 <?php
 
-
 namespace kollex\Import;
 
 use PHPUnit\Framework\TestCase;
@@ -33,32 +32,32 @@ class JsonFileReaderTest extends TestCase
         );
     }
 
-    function testMustProvidePath()
+    public function testMustProvidePath()
     {
         $this->expectException(\InvalidArgumentException::class);
         new JsonFileReader('');
     }
 
-    function testMustProvideDataPath()
+    public function testMustProvideDataPath()
     {
         $reader = new JsonFileReader($this->fs->url() . '/json/valid.json', ['dataPath' => 'data']);
         $this->assertEquals([], $reader->open()->getAllItems());
     }
 
-    function testFlatArray()
+    public function testFlatArray()
     {
         $reader = new JsonFileReader($this->fs->url() . '/json/flat.json');
         $this->assertEquals([4, 4, 4], $reader->open()->getAllItems());
     }
 
 
-    function testCanExtractNested()
+    public function testCanExtractNested()
     {
         $reader = new JsonFileReader($this->fs->url() . '/json/nested.json', ['dataPath' => 'message.data']);
         $this->assertEquals([1, 2, 3], $reader->open()->getAllItems());
     }
 
-    function testIterator()
+    public function testIterator()
     {
         $reader = new JsonFileReader($this->fs->url() . '/json/nested.json', ['dataPath' => 'message.data']);
         $iterator = $reader->open()->iterator();
