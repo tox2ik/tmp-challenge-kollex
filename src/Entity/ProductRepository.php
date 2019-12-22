@@ -12,7 +12,11 @@ class ProductRepository
 
     public function __construct(ProductMapper $param)
     {
-
         $this->mapper = $param;
+    }
+
+    public function saveMany(array $items): void
+    {
+        $this->mapper->saveMany($items);
     }
 }

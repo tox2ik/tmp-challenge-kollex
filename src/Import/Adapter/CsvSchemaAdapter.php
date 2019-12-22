@@ -10,7 +10,7 @@ class CsvSchemaAdapter implements SchemaAdapterInterface
     {
     }
 
-    public function decode($item): object
+    public function decode($item): array
     {
         // TODO: Implement decode() method.
     }

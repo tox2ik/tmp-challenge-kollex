@@ -14,9 +14,12 @@
 	},
 	"require": {
 		"php": ">=7.2",
+		"ext-json": "*",
+		"ext-pdo": "*",
 		"doctrine/orm": "^2.7",
 		"symfony/property-access": "^5.0",
-		"ext-json": "*"
+		"symfony/validator": "^5.0",
+		"auron-consulting-oss/php-console-logger": "^2.0"
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "^3.5",

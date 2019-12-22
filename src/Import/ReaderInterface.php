@@ -2,7 +2,9 @@
 
 namespace kollex\Import;
 
-interface ReaderInterface
+use kollex\Logging\Reportable;
+
+interface ReaderInterface extends Reportable
 {
     /***
      * @return self Open the target (stream) and read all items.
@@ -24,5 +26,5 @@ interface ReaderInterface
      */
     public function errors(): array;
 
-    public function isErroneous(): bool ;
+    public function isErroneous(): bool;
 }
