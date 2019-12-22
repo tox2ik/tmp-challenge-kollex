@@ -2,7 +2,7 @@
 
 namespace kollex\Import;
 
-use kollex\Dataprovider\Assortment\Product;
+use kollex\DataProvider\Assortment\Product;
 use kollex\Import\Adapter\SchemaAdapterInterface;
 use kollex\Logging\Reportable;
 use RuntimeException;
@@ -17,6 +17,10 @@ class FileSource implements SourceInterface, Reportable
      * @var array
      */
     public $errors = [];
+    /**
+     * @var array
+     */
+    public $warnings = [];
 
     /**
      * @var ReaderInterface
@@ -56,13 +60,19 @@ class FileSource implements SourceInterface, Reportable
     public function importAll(): array
     {
         $products = [];
+
         try {
             $this->reader->open();
         } catch (RuntimeException $re) {
             $this->runtimeEx[] = $re;
         }
         $iterator = $this->reader->iterator();
-        foreach ($iterator as $item) {
+
+        foreach ($iterator as $i => $item) {
+            if (null === $item) {
+                $this->warnings[] = sprintf("The reader generated a null item, index:%d", $i);
+                continue;
+            }
             try {
                 $properties = $this->adapter->decode($item);
                 $product = $this->adapter->convert($properties);
@@ -81,7 +91,7 @@ class FileSource implements SourceInterface, Reportable
 
     public function generateReport()
     {
-        return $this->errors();
+        return array_merge($this->errors(), $this->warnings);
     }
 
     public function errors(): array

@@ -2,7 +2,7 @@
 
 namespace kollex\Import\Adapter;
 
-use kollex\Dataprovider\Assortment\Product;
+use kollex\DataProvider\Assortment\Product;
 
 class CsvSchemaAdapter implements SchemaAdapterInterface
 {

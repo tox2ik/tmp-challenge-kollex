@@ -1,6 +1,6 @@
 <?php
 
-namespace kollex\Dataprovider\Assortment;
+namespace kollex\DataProvider\Assortment;
 
 interface DataProvider
 {

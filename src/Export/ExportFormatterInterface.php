@@ -2,11 +2,11 @@
 
 namespace kollex\kollex\Export;
 
-use kollex\Entity\Product;
+use kollex\Entity\ProductEntity;
 
 interface ExportFormatterInterface
 {
-    public function setItem(Product $item): self;
+    public function setItem(ProductEntity $item): self;
 
     public function serialize(): string;
 }

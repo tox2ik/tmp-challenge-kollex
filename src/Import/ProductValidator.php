@@ -2,7 +2,7 @@
 
 namespace kollex\Import;
 
-use kollex\Entity\Product;
+use kollex\DataProvider\Assortment\Product;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;

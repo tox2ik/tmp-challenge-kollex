@@ -2,8 +2,8 @@
 
 namespace kollex\Import\Adapter;
 
-use kollex\Dataprovider\Assortment\Product;
-use kollex\Entity\Product as ProductEntity;
+use kollex\DataProvider\Assortment\Product;
+use kollex\Entity\ProductEntity as ProductEntity;
 
 class JsonSchemaAdapter implements SchemaAdapterInterface
 {

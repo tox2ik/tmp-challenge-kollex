@@ -2,8 +2,8 @@
 
 namespace kollex\Import;
 
-use kollex\Dataprovider\Assortment\DataProvider;
-use kollex\Dataprovider\Assortment\Product;
+use kollex\DataProvider\Assortment\DataProvider;
+use kollex\DataProvider\Assortment\Product;
 
 interface SourceInterface extends DataProvider
 {

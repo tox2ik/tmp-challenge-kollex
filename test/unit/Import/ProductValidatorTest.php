@@ -2,7 +2,7 @@
 
 namespace kollex\Import;
 
-use kollex\Entity\Product;
+use kollex\Entity\ProductEntity as Product;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

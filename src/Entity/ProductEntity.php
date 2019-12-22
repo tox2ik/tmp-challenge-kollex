@@ -2,11 +2,9 @@
 
 namespace kollex\Entity;
 
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use Doctrine\ORM\Mapping as ORM;
 use kollex\DataProvider\Assortment\Product;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validation;
 
 /**
  *
