@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  * @ORM\Table(name="product")
  */
-class ProductEntity implements Product
+class ProductEntity implements Product, \Serializable
 {
     /**
      * @ORM\Id
@@ -107,7 +107,7 @@ class ProductEntity implements Product
      * Example:
      * LT
      *
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", nullable=false, length=2)
      * @var string
      *
      * ENUM: LT, GR
@@ -232,7 +232,7 @@ class ProductEntity implements Product
 
     public function __toString(): string
     {
-        return "Product{{$this->name}, {$this->id}";
+        return sprintf("Product{%14s,\t%-40s}", $this->id, $this->name);
     }
 
     public function identify(): string
@@ -240,4 +240,29 @@ class ProductEntity implements Product
         return $this->id;
     }
 
+    /**
+     *
+     * todo: we may want do define a "PUBLIC" set of properties to export akin to Laravel.
+     *       Imagine the entity is user and property is password! It can be validated, but we don't want to export it.
+     *       2019-12: Don't care because the spec is loose.
+     * @inheritDoc
+     */
+    public function serialize()
+    {
+        $props = array_keys($this->defineValidations());
+        $me = [];
+        foreach ($props as $p) {
+            $me[$p] = $this->{$p};
+        }
+        return json_encode($me);
+
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function unserialize($serialized)
+    {
+        // TODO: Implement unserialize() method.
+    }
 }

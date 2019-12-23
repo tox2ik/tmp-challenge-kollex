@@ -3,72 +3,84 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/src/bootstrap/orm.php';
 
+use AuronConsultingOSS\Logger\Console;
 use kollex\Entity\ProductMapper;
 use kollex\Entity\ProductRepository;
+use kollex\Export\JsonExporter;
 use kollex\Import\Adapter\CsvSchemaAdapter;
+use kollex\Import\CsvFileReader;
 use kollex\Import\JsonFileReader;
 use kollex\Import\FileSource;
 use kollex\Import\Adapter\JsonSchemaAdapter;
 use kollex\Import\ProductValidator;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Validation;
+
 
 
 class main
 {
-    static function importProducts()
+    static function importProducts(LoggerInterface $logger)
     {
+        $pvalid = new ProductValidator(Validation::createValidatorBuilder()->getValidator());
 
-        $logger = new AuronConsultingOSS\Logger\Console(false);
+        $ja = new JsonSchemaAdapter();
+        $ca = new CsvSchemaAdapter();
+        $json = new FileSource($pvalid, $ja, new JsonFileReader('data/wholesaler_b.json', ['dataPath' => 'data']));
+        $csv = new FileSource($pvalid, $ca, new CsvFileReader('data/wholesaler_a.csv', ['delimiter' => ';']));
 
-        $validator = Validation::createValidatorBuilder()
-                               ->enableAnnotationMapping()
-                               ->getValidator();
-
-        $provider1 = new FileSource(
-            new JsonFileReader('data/wholesaler_b.json', [ 'dataPath' => 'data' ]),
-            new JsonSchemaAdapter(),
-            new ProductValidator($validator)
-        );
-
-        $products = $provider1->importAll();
-
-        $logger->info(sprintf("read %d products;\n  %s", count($products), join("\n  ", $products)));
+        $productsCsv = $csv->importAll();
+        $productsJson = $json->importAll();
+        static::report($csv, $productsCsv, $logger);
+        static::report($json, $productsJson, $logger);
 
 
-        $productRepo = new ProductRepository(new ProductMapper(initOrm(), $logger));
-        $productRepo->saveMany($provider1->importAll());
-
-
-
-        if ($provider1->isErroneous()) {
-            printf("Report\n  %s", join("\n  ", $provider1->generateReport()));
-        }
-
-        // $entityManager->persist($product);
-        // $entityManager->flush();
-
-
-
-        //$provider2 = new FileSource(new FileReader('data/wholesaler_b.json'), new JsonSchemaAdapter());
-        // $productRepo->saveMany($provider2->importAll());
-        // printf("persisted.\n");
-
+        $repo = (new ProductRepository(new ProductMapper(initOrm(), $logger)));
+        $repo->saveMany($productsCsv);
+        $repo->saveMany($productsJson);
     }
 
-    static function displayProducts()
+    private static function report(FileSource $provider, array $products, LoggerInterface $logger)
     {
+        if ($provider->isErroneous()) {
+            $logger->error(sprintf("Report\n  %s", join("\n  ", $provider->generateReport())));
+        } else {
+            $logger->info(sprintf("read %d products;\n  %s", count($products), join("\n  ", $products)));
+        }
+    }
+
+    static function displayProducts(LoggerInterface $logger)
+    {
+
+
+        $repo = new ProductRepository(new ProductMapper(initOrm()));
+        $formatter = new JsonExporter();
+        $items = $repo->findAll();
+        echo "[" . PHP_EOL;
+
+
+        foreach ($items as $i => $e) {
+            echo $formatter->setItem($e)->serialize();
+            if ($i+1 < count($items)) {
+                print "," . PHP_EOL;
+            }
+        }
+
+        echo  PHP_EOL . "]";
+
     }
 }
 
 
-if ($argv[1] ?? false) {
 
+$logger = new AuronConsultingOSS\Logger\Console(false);
 
-    main::{$argv[1]}();
-
-} else {
-    main::importProducts();
-    main::displayProducts();
+if (count($argv) == 1) {
+    main::importProducts($logger);
+    main::displayProducts($logger);
+} elseif (count($argv) >= 1) {
+    $x = $argv[1];
+    main::{$argv[1]}($logger);
 }
 
 

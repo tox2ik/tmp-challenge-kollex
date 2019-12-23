@@ -32,7 +32,6 @@ class JsonFileReader implements ReaderInterface
     protected $options;
 
     /**
-     * JsonFileReader constructor.
      * @param string $path
      * @param array $options = [
      *     'dataPath' => '/data/patt.txt'

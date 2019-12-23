@@ -10,7 +10,7 @@ ini_set('xdebug.trace_format ', 0);
 ini_set('xdebug.idekey', 'PHPSTORM');
 
 if (!is_dir('/tmp/xdebug')) {
-    mkdir('/tmp/xdebug', 755, true);
+    mkdir('/tmp/xdebug', 0755, true);
 }
 
 

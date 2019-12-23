@@ -38,7 +38,7 @@ interface DataMapper {
 	+ retrieveAll()
 }
 interface Repository {
-	+ createAll()
+	+ findAll()
 }
 
 

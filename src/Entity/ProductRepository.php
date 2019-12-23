@@ -2,6 +2,8 @@
 
 namespace kollex\Entity;
 
+use kollex\DataProvider\Assortment\Product;
+
 class ProductRepository
 {
 
@@ -18,5 +20,13 @@ class ProductRepository
     public function saveMany(array $items): void
     {
         $this->mapper->saveMany($items);
+    }
+
+    /**
+     * @return Product[]
+     */
+    public function findAll(): array
+    {
+        return $this->mapper->retrieveAll();
     }
 }

@@ -37,9 +37,9 @@ class FileSource implements SourceInterface, Reportable
     private $validator;
 
     public function __construct(
-        ReaderInterface $reader,
+        ProductValidator $validator,
         SchemaAdapterInterface $adapter,
-        ProductValidator $validator
+        ReaderInterface $reader
     ) {
         $this->reader = $reader;
         $this->adapter = $adapter;

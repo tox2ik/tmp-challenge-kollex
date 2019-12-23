@@ -40,16 +40,17 @@ Solution by Jaroslav
   - [ ] type hinting, return types
   - [ ] 12-factor app
 - target
-  - [ ] parse all data and json-encode as defined in swagger-Product
+  - [ ] parse all data and store as defined in swagger-Product
   - [ ] skip elaborate API / CLI frontend
   - [ ] provide documentation of code, concepts, possible extensions
-  - [ ] provide rationale for coieces of specific structure, patterns
+  - [ ] provide rationale for choices of specific structure, patterns
   - [ ] privide reasons for picking libraries / frameworks compared to other options 
   - [ ] desicions regarding test methodology
   - [ ] docker-compose up
 
 
 ## Desicions
+
 
 - Write about normalization / sapace tradeofs
     - memory consumption
@@ -64,6 +65,17 @@ default lengths for varchar (255 characters).
 
 There is no public API for export here, I own all the code in this challenge.
 Therefore, there is no need to encapsulate the entity properties.
+
+### basic string functions in `adapter->decode()`
+
+I hold that the memory/cpu cost of `explode` and regular expressions in not worth the
+convenience for tackling fairly predictable input data. Further, parsing single fields such as `packaging`
+with `explode()` and `preg_match()` would not be more elegant.
+
+### Export as a format
+
+This part of the app is not well thought out.
+Currently we can export items as json, but some of the logic should be refactored and moved out from `main`.
 
 
 ## Architecture
@@ -86,6 +98,8 @@ while converting to our internal schema.
 The entry point is from the `displayProducts()` function.
 
 ![list](doc/list-scenario.class.png "Import scenario")
+
+
 
 
 ### Notes about the implementation

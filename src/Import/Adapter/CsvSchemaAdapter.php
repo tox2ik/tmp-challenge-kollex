@@ -31,7 +31,7 @@ class CsvSchemaAdapter implements SchemaAdapterInterface
         'packaging product' => 'packaging',
         'packaging unit' => 'baseProductPackaging',
         'amount per unit' => 'baseProductAmount',
-        'stock' => 'baseProductQuantity',
+        //'stock' => 'baseProductQuantity',
 
         'description' => 'description',
     ];
@@ -72,6 +72,7 @@ class CsvSchemaAdapter implements SchemaAdapterInterface
 
         if ($out['packaging'] === 'single') {
             $out['packaging'] = $out['baseProductPackaging'];
+            $out['baseProductQuantity'] = 1;
         } if (false !== strpos($out['packaging'], ' ')) {
             $token = strtok($out['packaging'], ' ');
             while (false !== $token) {
