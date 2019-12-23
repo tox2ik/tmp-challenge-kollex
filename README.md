@@ -24,9 +24,9 @@ alternatves to run the demo:
 
 ...renders like:
 
-    - [x] done
-    - [.] kinda done
-    - [/] aborted
+- [x] done
+- [.] kinda done
+- [/] aborted
 
 ## Task
 
