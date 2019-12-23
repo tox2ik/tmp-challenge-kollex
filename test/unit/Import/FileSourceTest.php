@@ -13,7 +13,7 @@ class FileSourceTest extends TestCase
         $reader = $this->createMock(ReaderInterface::class);
         $adapter = $this->createMock(SchemaAdapterInterface::class);
         $validator = $this->createMock(ProductValidator::class);
-        $this->assertEquals([], (new FileSource($reader, $adapter, $validator))->importAll());
+        $this->assertEquals([], (new FileSource($validator, $adapter, $reader))->importAll());
     }
 
     public function testGetProducts_PoorUpstreamFunctionName_MustSupport()
@@ -32,7 +32,7 @@ class FileSourceTest extends TestCase
         $reader->expects($this->once())->method('iterator')->willReturn(new \ArrayIterator([ $params ]));
         $adapter->expects($this->once())->method('decode')->willReturn([ $params ]);
         $adapter->expects($this->once())->method('convert')->willReturn(new ProductEntity($params));
-        $this->assertCount(1, (new FileSource($reader, $adapter, $validator))->importAll());
+        $this->assertCount(1, (new FileSource($validator, $adapter, $reader))->importAll());
     }
 
     public function testGenerateReport_InvalidInput_GeneratesMessages()
@@ -45,7 +45,7 @@ class FileSourceTest extends TestCase
         $adapter->expects($this->once())->method('decode');
         $adapter->expects($this->once())->method('convert');
         $validator->expects($this->once())->method('validate')->willReturn(['Nope']);
-        $source = new FileSource($reader, $adapter, $validator);
+        $source = new FileSource($validator, $adapter, $reader);
         $source->importAll();
         $this->assertEquals([ 'Nope' ], $source->generateReport());
         $this->assertTrue($source->isErroneous());

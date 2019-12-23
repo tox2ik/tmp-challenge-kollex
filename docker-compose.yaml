@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+   php72:
+     build: .meta/docker
+     environment:
+       - PAGER=cat
+     container_name: kollex-demo
+     image: kollex:1
+     restart: always
+     volumes:
+       - .:/code

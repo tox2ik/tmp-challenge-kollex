@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
  * @covers ProviderProduct
  * @package kollex\Import
  */
-class ProducTest extends TestCase
+class ProductTest extends TestCase
 {
     public function testIdentify_New_EmptyString()
     {
