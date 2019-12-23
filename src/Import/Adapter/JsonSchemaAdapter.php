@@ -14,9 +14,12 @@ class JsonSchemaAdapter implements SchemaAdapterInterface
         'box' => 'BX',
         'can' => 'CN',
 
-        'BO' => 'BO',
         'CA' => 'CA',
-        'BX' => 'BX'
+        'BX' => 'BX',
+        'BO' => 'BO',
+        'CN' => 'CN',
+        'LT' => 'LT',
+        'GR' => 'GR'
     ];
 
     protected static $mapExternal = [
@@ -33,7 +36,7 @@ class JsonSchemaAdapter implements SchemaAdapterInterface
         'ADDITIONAL_INFO' => 'description',
     ];
 
-    public function convert($properties = null): Product
+    public function convert(array $properties = null): Product
     {
         return new ProductEntity($properties);
     }
@@ -50,6 +53,8 @@ class JsonSchemaAdapter implements SchemaAdapterInterface
         $out['packaging'] = static::$mapUnits[strtolower($out['packaging'])] ?? $out['packaging'];
         $out['baseProductPackaging'] = static::$mapUnits[strtolower($out['baseProductPackaging'])]
             ?? $out['baseProductPackaging'];
+        // --- common code above
+
         return $out;
     }
 }
